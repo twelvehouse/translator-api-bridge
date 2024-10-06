@@ -18,12 +18,17 @@ TARGET_LANG = os.getenv('TARGET_LANG', 'ja')  # デフォルトは日本語
 app = Flask(__name__)
 
 # 翻訳用のエンドポイント
-@app.route('/translate/<text>', methods=['GET'])
-def translate(text):
+@app.route('/translate', methods=['GET'])
+def translate():
+    # クエリパラメータから値を取得
+    from_lang = request.args.get('from')  # 翻訳元の言語
+    to_lang = request.args.get('to')      # 翻訳先の言語
+    text = request.args.get('text')       # 翻訳したいテキスト
+
     # APIに送信するデータ
     data = {
         "text": text,
-        "target_lang": TARGET_LANG  # 環境変数から言語を取得
+        "target_lang": to_lang  # 環境変数から言語を取得
     }
 
     try:
