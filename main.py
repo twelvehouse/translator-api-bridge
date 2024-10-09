@@ -28,17 +28,15 @@ def translate():
     # APIに送信するデータ
     data = {
         "text": text,
-        "target_lang": to_lang  # 環境変数から言語を取得
+        "target_lang": to_lang
     }
 
     try:
-        # 自作の翻訳APIにPOSTリクエストを送信
+        # 翻訳APIにPOSTリクエストを送信
         response = requests.post(API_URL, data=json.dumps(data))
         
-        # レスポンスをJSON形式に変換
+        # 翻訳されたテキストを返却
         response_data = response.json().get("data")
-        
-        # 翻訳されたテキストを平文で返す
         return response_data
 
     except Exception as e:
